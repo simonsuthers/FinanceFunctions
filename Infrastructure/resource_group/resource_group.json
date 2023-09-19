@@ -2,15 +2,19 @@
     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-        "rgName": {
-            "type": "string"
+        "resource_group_name": {
+            "type": "string",
+            "defaultValue": "rg-ss-financeapp-001"
         },
-        "rgLocation": {
-            "type": "string"
+        "resource_group_location": {
+            "type": "string",
+            "defaultValue": "uksouth"
         },
         "tags": {
             "type": "object",
-            "defaultValue": {}
+            "defaultValue": {
+                "application": "finance"
+            }
         }
     },
     "variables": {},
@@ -18,8 +22,8 @@
         {
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2018-05-01",
-            "location": "[parameters('rgLocation')]",
-            "name": "[parameters('rgName')]",
+            "location": "[parameters('resource_group_location')]",
+            "name": "[parameters('resource_group_name')]",
             "properties": {},
             "tags": "[parameters('tags')]"
         }
