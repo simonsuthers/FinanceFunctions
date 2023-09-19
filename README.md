@@ -12,14 +12,14 @@ The project then aims to find correlations between prices and fundamentals.
   - web app is created using React to visualise the data
 
 ## Key infrastructure steps
- - Create resource group
- - Create data lake with storage account using cool tier
- - Create ARM template and deploy using PowerShell
- - Add deploy to Azure button to Github
- - Create Azure function with ARM template
+ - [x] Create resource group
+ - [ ] Create data lake with storage account using cool tier
+ - [ ] Create ARM template and deploy using PowerShell
+ - [ ] Add deploy to Azure button to Github
+ - [ ] Create Azure function with ARM template
     - Create managed identity
     - Give managed identity permissions to read/write to storage accounnt.
- - Create Key vault with ARM template
+ - [ ] Create Key vault with ARM template
 
 Next steps:
 Adding Azure storage:
