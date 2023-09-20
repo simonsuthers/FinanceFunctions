@@ -35,6 +35,9 @@
             "type": "Microsoft.Web/sites",
             "kind": "functionapp,linux",
             "location": "[parameters('location')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "tags": {
                 "application": "finance",
                 "hidden-link: /app-insights-resource-id": "[format('/subscriptions/{0}/resourceGroups/func-ss-financeapp-001_group/providers/Microsoft.Insights/components/func-ss-financeapp-001', subscription().subscriptionId)]"
