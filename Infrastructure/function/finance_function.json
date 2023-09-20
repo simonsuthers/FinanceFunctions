@@ -27,7 +27,10 @@
             "defaultValue": "rg-ss-financeapp-001"
         }
     },
-    "variables": {},
+    "variables": {
+        "Contributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+        "bootstrapRoleAssignmentId": "[guid(concat(parameters('name'), 'contributor'))]"
+    },
     "resources": [
         {
             "apiVersion": "2018-11-01",
@@ -40,7 +43,7 @@
             },
             "tags": {
                 "application": "finance",
-                "hidden-link: /app-insights-resource-id": "[format('/subscriptions/{0}/resourceGroups/func-ss-financeapp-001_group/providers/Microsoft.Insights/components/func-ss-financeapp-001', subscription().subscriptionId)]"
+                "hidden-link: /app-insights-resource-id": "[format('/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Insights/components/func-ss-financeapp-001', subscription().subscriptionId, resourceGroup().name)]"
             },
             "dependsOn": [
                 "microsoft.insights/components/func-ss-financeapp-001",
@@ -162,6 +165,20 @@
                 "Flow_Type": "Redfield",
                 "Application_Type": "web",
                 "WorkspaceResourceId": "/subscriptions/31b194ac-9649-4389-b0ef-96f6dcdd56c2/resourceGroups/DefaultResourceGroup-SUK/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-31b194ac-9649-4389-b0ef-96f6dcdd56c2-SUK"
+            }
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2022-04-01",
+            "name": "[variables('bootstrapRoleAssignmentId')]",
+            "scope": "[concat('Microsoft.Storage/storageAccounts', '/', parameters('storageAccountName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[variables('Contributor')]",
+                "principalId": "[reference(resourceId('Microsoft.Web/Sites', parameters('name')), '2018-11-30', 'Full').identity.principalId]",
+                "principalType": "ServicePrincipal"
             }
         },
         {
