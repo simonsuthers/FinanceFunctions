@@ -31,7 +31,6 @@ def BlobTrigger(req: func.HttpRequest, outputblob: func.Out[str]):
     logging.info(f"Python blob trigger function processed blob")
 
     clear_text = "hello"
-    
     outputblob.set(clear_text)
     
     return func.HttpResponse(f"This HTTP triggered function executed successfully.")
