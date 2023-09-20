@@ -19,7 +19,9 @@
             "defaultValue": true
         }
     },
-    "variables": {},
+    "variables": {
+        "ContainerName": "finance"
+    },
     "resources": [
         {
             "name": "[parameters('storageAccountName')]",
@@ -69,7 +71,20 @@
             "kind": "StorageV2",
             "tags": {
                 "application": "finance"
-            }
+            },
+            "resources": [
+                {
+                    "type": "blobServices/containers",
+                    "apiVersion": "2018-03-01",
+                    "name": "[concat('default/', variables('ContainerName'))]",
+                    "dependsOn": [
+                        "[parameters('StorageAccountName')]"
+                    ],
+                    "properties": {
+                        "publicAccess": "None"
+                    }
+                }
+            ]
         },
         {
             "name": "[concat(parameters('storageAccountName'), '/default')]",
