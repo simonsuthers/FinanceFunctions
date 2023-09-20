@@ -13,9 +13,9 @@ The project then aims to find correlations between prices and fundamentals.
 
 ## Key infrastructure steps
  - [x] Create resource group
- - [ ] Create data lake with storage account using cool tier
- - [ ] Create ARM template and deploy using PowerShell
- - [ ] Add deploy to Azure button to Github
+ - [x] Create data lake with storage account using hot tier
+ - [x] Create ARM template and deploy using PowerShell
+ - [x] Add deploy to Azure button to Github
  - [ ] Create Azure function with ARM template
     - Create managed identity
     - Give managed identity permissions to read/write to storage accounnt.
