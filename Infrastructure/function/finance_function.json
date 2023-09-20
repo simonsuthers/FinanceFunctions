@@ -21,15 +21,12 @@
         "hostingPlanName": {
             "type": "string",
             "defaultValue": "appplan-ss-financeapp-001"
-        },
-        "serverFarmResourceGroup": {
-            "type": "string",
-            "defaultValue": "rg-ss-financeapp-001"
         }
     },
     "variables": {
-        "Contributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
-        "bootstrapRoleAssignmentId": "[guid(concat(parameters('name'), 'contributor'))]"
+        "StorageBlobContributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
+        "bootstrapRoleAssignmentId": "[guid(concat(parameters('name'), 'contributor'))]",
+        "serverFarmResourceGroup": "[resourceGroup().name]"
     },
     "resources": [
         {
@@ -91,7 +88,7 @@
                 "virtualNetworkSubnetId": null,
                 "publicNetworkAccess": "Enabled",
                 "httpsOnly": true,
-                "serverFarmId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+                "serverFarmId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourcegroups/', variables('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
             },
             "resources": [
                 {
@@ -176,7 +173,7 @@
                 "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
             ],
             "properties": {
-                "roleDefinitionId": "[variables('Contributor')]",
+                "roleDefinitionId": "[variables('StorageBlobContributor')]",
                 "principalId": "[reference(resourceId('Microsoft.Web/Sites', parameters('name')), '2022-03-01', 'Full').identity.principalId]",
                 "principalType": "ServicePrincipal"
             }
