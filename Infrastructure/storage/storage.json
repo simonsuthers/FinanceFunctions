@@ -17,10 +17,11 @@
         "isHnsEnabled": {
             "type": "bool",
             "defaultValue": true
+        },
+        "ContainerName": {
+            "type": "string",
+            "defaultValue": "finance"
         }
-    },
-    "variables": {
-        "ContainerName": "finance"
     },
     "resources": [
         {
@@ -75,8 +76,8 @@
             "resources": [
                 {
                     "type": "blobServices/containers",
-                    "apiVersion": "2018-03-01",
-                    "name": "[concat('default/', variables('ContainerName'))]",
+                    "apiVersion": "2022-09-01",
+                    "name": "[concat('default/', parameters('ContainerName'))]",
                     "dependsOn": [
                         "[parameters('StorageAccountName')]"
                     ],
