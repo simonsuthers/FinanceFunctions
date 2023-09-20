@@ -16,10 +16,12 @@ The project then aims to find correlations between prices and fundamentals.
  - [x] Create data lake with storage account using hot tier
  - [x] Create ARM template and deploy using PowerShell
  - [x] Add deploy to Azure button to Github
- - [ ] Create Azure function with ARM template
-    - Create managed identity
-    - Give managed identity permissions to read/write to storage accounnt.
+ - [x] Create Azure function with ARM template
+    - [ ] Create managed identity
+    - [ ] Give managed identity permissions to read/write to storage accounnt.
+ - [ ] Set up CI/CD for Azure function
  - [ ] Create Key vault with ARM template
+ - [ ] Change function to API style with swagger ui
 
 Next steps:
 Adding Azure storage:
