@@ -1,0 +1,194 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": "[subscription().subscriptionId]"
+        },
+        "name": {
+            "defaultValue": "func-ss-financeapp-001",
+            "type": "string"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "uksouth"
+        },
+        "storageAccountName": {
+            "type": "string",
+            "defaultValue": "stgssfinanaceapp001"
+        },
+        "repoUrl": {
+            "type": "string",
+            "value": "https://github.com/simonsuthers/FinanceFunctions"
+        },
+        "hostingPlanName": {
+            "type": "string",
+            "defaultValue": "appplan-ss-financeapp-001"
+        },
+        "serverFarmResourceGroup": {
+            "type": "string",
+            "value": "rg-ss-financeapp-001"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('name')]",
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp,linux",
+            "location": "[parameters('location')]",
+            "tags": {
+                "application": "finance",
+                "hidden-link: /app-insights-resource-id": "/subscriptions/31b194ac-9649-4389-b0ef-96f6dcdd56c2/resourceGroups/func-ss-financeapp-001_group/providers/Microsoft.Insights/components/func-ss-financeapp-001"
+            },
+            "dependsOn": [
+                "microsoft.insights/components/func-ss-financeapp-001",
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+            ],
+            "properties": {
+                "name": "[parameters('name')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~4"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "python"
+                        },
+                        {
+                            "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                            "value": "[reference('microsoft.insights/components/func-ss-financeapp-001', '2015-05-01').ConnectionString]"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',listKeys(resourceId('31b194ac-9649-4389-b0ef-96f6dcdd56c2','rg-ss-financeapp-001','Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',listKeys(resourceId('31b194ac-9649-4389-b0ef-96f6dcdd56c2','rg-ss-financeapp-001','Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTSHARE",
+                            "value": "func-ss-financeapp-001934c"
+                        }
+                    ],
+                    "cors": {
+                        "allowedOrigins": [
+                            "https://portal.azure.com"
+                        ]
+                    },
+                    "use32BitWorkerProcess": false,
+                    "ftpsState": "FtpsOnly",
+                    "linuxFxVersion": "Python|3.9"
+                },
+                "clientAffinityEnabled": false,
+                "virtualNetworkSubnetId": null,
+                "publicNetworkAccess": "Enabled",
+                "httpsOnly": true,
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+            },
+            "resources": [
+                {
+                    "type": "sourcecontrols",
+                    "name": "web",
+                    "apiVersion": "2020-12-01",
+                    "properties": {
+                        "RepoUrl": "[parameters('repoUrl')]",
+                        "branch": "main",
+                        "IsManualIntegration": false,
+                        "deploymentRollbackEnabled": false,
+                        "isMercurial": false,
+                        "isGitHubAction": true,
+                        "gitHubActionConfiguration": {
+                            "generateWorkflowFile": true,
+                            "workflowSettings": {
+                                "appType": "functionapp",
+                                "publishType": "code",
+                                "os": "linux",
+                                "runtimeStack": "python",
+                                "workflowApiVersion": "2020-12-01",
+                                "slotName": "production",
+                                "variables": {
+                                    "runtimeVersion": "3.9"
+                                }
+                            }
+                        }
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
+                    ]
+                }
+            ]
+        },
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('hostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('location')]",
+            "kind": "linux",
+            "tags": {
+                "application": "finance"
+            },
+            "dependsOn": [],
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "workerSize": "0",
+                "workerSizeId": "0",
+                "numberOfWorkers": "1",
+                "reserved": true
+            },
+            "sku": {
+                "Tier": "Dynamic",
+                "Name": "Y1"
+            }
+        },
+        {
+            "apiVersion": "2020-02-02-preview",
+            "name": "func-ss-financeapp-001",
+            "type": "microsoft.insights/components",
+            "location": "uksouth",
+            "tags": {
+                "application": "finance"
+            },
+            "dependsOn": [
+                "newWorkspaceTemplate"
+            ],
+            "properties": {
+                "ApplicationId": "[parameters('name')]",
+                "Request_Source": "IbizaWebAppExtensionCreate",
+                "Flow_Type": "Redfield",
+                "Application_Type": "web",
+                "WorkspaceResourceId": "/subscriptions/31b194ac-9649-4389-b0ef-96f6dcdd56c2/resourceGroups/DefaultResourceGroup-SUK/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-31b194ac-9649-4389-b0ef-96f6dcdd56c2-SUK"
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "newWorkspaceTemplate",
+            "resourceGroup": "DefaultResourceGroup-SUK",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "apiVersion": "2020-08-01",
+                            "name": "DefaultWorkspace-31b194ac-9649-4389-b0ef-96f6dcdd56c2-SUK",
+                            "type": "Microsoft.OperationalInsights/workspaces",
+                            "location": "uksouth",
+                            "properties": {}
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
