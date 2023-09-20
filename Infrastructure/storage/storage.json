@@ -77,11 +77,11 @@
             "apiVersion": "2022-05-01",
             "properties": {
                 "deleteRetentionPolicy": {
-                    "enabled": true,
+                    "enabled": false,
                     "days": 7
                 },
                 "containerDeleteRetentionPolicy": {
-                    "enabled": true,
+                    "enabled": false,
                     "days": 7
                 }
             },
@@ -95,7 +95,7 @@
             "apiVersion": "2022-05-01",
             "properties": {
                 "shareDeleteRetentionPolicy": {
-                    "enabled": true,
+                    "enabled": false,
                     "days": "7"
                 }
             },
