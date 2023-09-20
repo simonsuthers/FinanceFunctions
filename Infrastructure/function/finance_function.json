@@ -177,7 +177,7 @@
             ],
             "properties": {
                 "roleDefinitionId": "[variables('Contributor')]",
-                "principalId": "[reference(resourceId('Microsoft.Web/Sites', parameters('name')), '2018-11-30', 'Full').identity.principalId]",
+                "principalId": "[reference(resourceId('Microsoft.Web/Sites', parameters('name'))).identity.principalId]",
                 "principalType": "ServicePrincipal"
             }
         },
