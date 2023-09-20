@@ -10,105 +10,13 @@
             "type": "string",
             "defaultValue": "stgssfinanaceapp001"
         },
-        "accountType": {
-            "type": "string",
-            "defaultValue": "Standard_LRS"
-        },
-        "kind": {
-            "type": "string",
-            "defaultValue": "StorageV2"
-        },
-        "minimumTlsVersion": {
-            "type": "string",
-            "defaultValue": "TLS1_2"
-        },
-        "supportsHttpsTrafficOnly": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "allowBlobPublicAccess": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "allowSharedKeyAccess": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "defaultOAuth": {
-            "type": "bool",
-            "defaultValue": false
-        },
         "accessTier": {
             "type": "string",
-            "defaultValue": "Cool"
-        },
-        "publicNetworkAccess": {
-            "type": "string",
-            "defaultValue": "Enabled"
-        },
-        "allowCrossTenantReplication": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "networkAclsBypass": {
-            "type": "string",
-            "defaultValue": "AzureServices"
-        },
-        "networkAclsDefaultAction": {
-            "type": "string",
-            "defaultValue": "Allow"
-        },
-        "dnsEndpointType": {
-            "type": "string",
-            "defaultValue": "Standard"
+            "defaultValue": "Hot"
         },
         "isHnsEnabled": {
             "type": "bool",
             "defaultValue": true
-        },
-        "isSftpEnabled": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "keySource": {
-            "type": "string",
-            "defaultValue": "Microsoft.Storage"
-        },
-        "encryptionEnabled": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "keyTypeForTableAndQueueEncryption": {
-            "type": "string",
-            "defaultValue": "Account"
-        },
-        "infrastructureEncryptionEnabled": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "isBlobSoftDeleteEnabled": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "blobSoftDeleteRetentionDays": {
-            "type": "int",
-            "defaultValue": 7
-        },
-        "isContainerSoftDeleteEnabled": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "containerSoftDeleteRetentionDays": {
-            "type": "int",
-            "defaultValue": 7
-        },
-        "isShareSoftDeleteEnabled": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "shareSoftDeleteRetentionDays": {
-            "type": "int",
-            "defaultValue": 7
         }
     },
     "variables": {},
@@ -119,46 +27,46 @@
             "apiVersion": "2022-05-01",
             "location": "[parameters('location')]",
             "properties": {
-                "minimumTlsVersion": "[parameters('minimumTlsVersion')]",
-                "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]",
-                "allowBlobPublicAccess": "[parameters('allowBlobPublicAccess')]",
-                "allowSharedKeyAccess": "[parameters('allowSharedKeyAccess')]",
-                "defaultToOAuthAuthentication": "[parameters('defaultOAuth')]",
+                "minimumTlsVersion": "TLS1_2",
+                "supportsHttpsTrafficOnly": true,
+                "allowBlobPublicAccess": false,
+                "allowSharedKeyAccess": true,
+                "defaultToOAuthAuthentication": false,
                 "accessTier": "[parameters('accessTier')]",
-                "publicNetworkAccess": "[parameters('publicNetworkAccess')]",
-                "allowCrossTenantReplication": "[parameters('allowCrossTenantReplication')]",
+                "publicNetworkAccess": "Enabled",
+                "allowCrossTenantReplication": false,
                 "networkAcls": {
-                    "bypass": "[parameters('networkAclsBypass')]",
-                    "defaultAction": "[parameters('networkAclsDefaultAction')]",
+                    "bypass": "AzureServices",
+                    "defaultAction": "Allow",
                     "ipRules": []
                 },
-                "dnsEndpointType": "[parameters('dnsEndpointType')]",
+                "dnsEndpointType": "Standard",
                 "isHnsEnabled": "[parameters('isHnsEnabled')]",
-                "isSftpEnabled": "[parameters('isSftpEnabled')]",
+                "isSftpEnabled": false,
                 "encryption": {
-                    "keySource": "[parameters('keySource')]",
+                    "keySource": "Microsoft.Storage",
                     "services": {
                         "blob": {
-                            "enabled": "[parameters('encryptionEnabled')]"
+                            "enabled": true
                         },
                         "file": {
-                            "enabled": "[parameters('encryptionEnabled')]"
+                            "enabled": true
                         },
                         "table": {
-                            "enabled": "[parameters('encryptionEnabled')]"
+                            "enabled": true
                         },
                         "queue": {
-                            "enabled": "[parameters('encryptionEnabled')]"
+                            "enabled": true
                         }
                     },
-                    "requireInfrastructureEncryption": "[parameters('infrastructureEncryptionEnabled')]"
+                    "requireInfrastructureEncryption": false
                 }
             },
             "dependsOn": [],
             "sku": {
-                "name": "[parameters('accountType')]"
+                "name": "Standard_LRS"
             },
-            "kind": "[parameters('kind')]",
+            "kind": "StorageV2",
             "tags": {
                 "application": "finance"
             }
@@ -169,12 +77,12 @@
             "apiVersion": "2022-05-01",
             "properties": {
                 "deleteRetentionPolicy": {
-                    "enabled": "[parameters('isBlobSoftDeleteEnabled')]",
-                    "days": "[parameters('blobSoftDeleteRetentionDays')]"
+                    "enabled": true,
+                    "days": 7
                 },
                 "containerDeleteRetentionPolicy": {
-                    "enabled": "[parameters('isContainerSoftDeleteEnabled')]",
-                    "days": "[parameters('containerSoftDeleteRetentionDays')]"
+                    "enabled": true,
+                    "days": 7
                 }
             },
             "dependsOn": [
@@ -187,8 +95,8 @@
             "apiVersion": "2022-05-01",
             "properties": {
                 "shareDeleteRetentionPolicy": {
-                    "enabled": "[parameters('isShareSoftDeleteEnabled')]",
-                    "days": "[parameters('shareSoftDeleteRetentionDays')]"
+                    "enabled": true,
+                    "days": "7"
                 }
             },
             "dependsOn": [
