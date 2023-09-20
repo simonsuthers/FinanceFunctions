@@ -15,6 +15,8 @@ $url = "https://github.com/simonsuthers/FinanceFunctions/blob/main/Infrastructur
 
 To deploy the resource group to Azure using PowerShell, run the following code:
 ```
+New-AzResourceGroupDeployment -ResourceGroupName rg-ss-financeapp-001 -TemplateFile .storage/storage.json
+
 New-AzSubscriptionDeployment `
   -Name ResourceGroupDeployment `
   -Location uksouth `
