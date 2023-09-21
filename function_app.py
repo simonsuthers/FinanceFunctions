@@ -8,7 +8,7 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 def HttpTrigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    username = os.environ["alphavantageusername"]
+    username = os.environ["alphavantageapikey"]
 
     name = req.params.get('name')
     if not name:
