@@ -73,6 +73,10 @@
                         {
                             "name": "WEBSITE_CONTENTSHARE",
                             "value": "func-ss-financeapp-001934c"
+                        },
+                        {
+                            "name": "FinanceBlobStorage__serviceUri",
+                            "value": "https://stgssfinanaceapp001.blob.core.windows.net"
                         }
                     ],
                     "cors": {

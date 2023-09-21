@@ -29,3 +29,8 @@ The project then aims to find correlations between prices and fundamentals.
 Next steps:
 Adding Azure storage:
 https://learn.microsoft.com/en-us/azure/azure-functions/functions-add-output-binding-storage-queue-vs-code?pivots=programming-language-python&tabs=in-process%2Cv1
+
+## Log on to Azure with PowerShell
+```
+Connect-AzAccount
+```

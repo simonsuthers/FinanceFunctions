@@ -23,6 +23,11 @@
             "defaultValue": "finance"
         }
     },
+    "variables": {
+        "StorageBlobContributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
+        "bootstrapRoleAssignmentId": "[guid(concat('simonsuthers', 'blobstoragecontributor'))]",
+        "simonSuthersId": "b8b27381-e060-47fb-87e1-d8bab6f6d89b"
+    },
     "resources": [
         {
             "name": "[parameters('storageAccountName')]",
@@ -119,6 +124,20 @@
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
                 "[concat(concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName')), '/blobServices/default')]"
             ]
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2022-04-01",
+            "name": "[variables('bootstrapRoleAssignmentId')]",
+            "scope": "[concat('Microsoft.Storage/storageAccounts', '/', parameters('storageAccountName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[variables('StorageBlobContributor')]",
+                "principalId": "[variables('simonSuthersId]",
+                "principalType": "User"
+            }
         }
     ],
     "outputs": {}

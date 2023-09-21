@@ -26,7 +26,7 @@ def HttpTrigger(req: func.HttpRequest) -> func.HttpResponse:
     
 
 @app.route(route="BlobTrigger")
-@app.blob_output(arg_name="outputblob", path="finance/test.txt", connection="AzureBlobStorage") 
+@app.blob_output(arg_name="outputblob", path="finance/test.txt", connection="FinanceBlobStorage") 
 def BlobTrigger(req: func.HttpRequest, outputblob: func.Out[str]):
     logging.info(f"Python blob trigger function processed blob")
 
