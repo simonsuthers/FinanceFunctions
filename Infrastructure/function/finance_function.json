@@ -197,7 +197,7 @@
                 "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
             ],
             "properties": {
-                "roleDefinitionId": "[variables('keyVaultUserId')]",
+                "roleDefinitionId": "[variables('KeyVaultUser')]",
                 "principalId": "[reference(resourceId('Microsoft.Web/Sites', parameters('name')), '2022-03-01', 'Full').identity.principalId]",
                 "principalType": "ServicePrincipal"
             }
