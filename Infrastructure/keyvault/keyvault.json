@@ -9,8 +9,8 @@
     },
     "variables": {
         "simonSuthersId": "b8b27381-e060-47fb-87e1-d8bab6f6d89b",
-        "KeyVaultUser": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '4633458b-17de-408a-b874-0445c86b69e6')]",
-        "bootstrapRoleAssignmentId": "[guid(concat('simonsuthers', 'keyvaultuser'))]"
+        "KeyVaultOfficer": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')]",
+        "bootstrapRoleAssignmentId": "[guid(concat('simonsuthers', 'keyvaultofficer'))]"
     },
     "resources": [
         {
@@ -55,7 +55,7 @@
                 "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
             ],
             "properties": {
-                "roleDefinitionId": "[variables('KeyVaultUser')]",
+                "roleDefinitionId": "[variables('KeyVaultOfficer')]",
                 "principalId": "[variables('simonSuthersId')]",
                 "principalType": "User"
             }
