@@ -17,11 +17,14 @@ The project then aims to find correlations between prices and fundamentals.
  - [x] Create ARM template and deploy using PowerShell
  - [x] Add deploy to Azure button to Github
  - [x] Create Azure function with ARM template
-    - [ ] Create managed identity
-    - [ ] Give managed identity permissions to read/write to storage accounnt.
- - [ ] Set up CI/CD for Azure function
+    - [x] Create managed identity
+    - [x] Give managed identity permissions to read/write to storage accounnt.
+ - [x] Set up CI/CD for Azure function
  - [ ] Create Key vault with ARM template
- - [ ] Change function to API style with swagger ui
+ - [ ] Get function to save to blob storage
+     - [ ] Used managed identity permissions
+ - [ ] Get function to get data from alphavantage
+      - [ ] Save to blob storage
 
 Next steps:
 Adding Azure storage:
