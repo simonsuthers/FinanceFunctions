@@ -1,6 +1,9 @@
 import azure.functions as func
 import logging
 import os
+import requests
+import json
+
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
@@ -33,7 +36,13 @@ def HttpTrigger(req: func.HttpRequest) -> func.HttpResponse:
 def BlobTrigger(req: func.HttpRequest, outputblob: func.Out[str]):
     logging.info(f"Python blob trigger function processed blob")
 
-    clear_text = "hello"
-    outputblob.set(clear_text)
+    apikey = os.environ["alphavantageapikey"]
+
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey={apikey}'
+    r = requests.get(url)
+    data = r.json()
+    data = json.dumps(data)
+
+    outputblob.set(data)
     
-    return func.HttpResponse(f"This HTTP triggered function executed successfully.")
+    return func.HttpResponse(f"This HTTP triggered function executed successfully. apikey is {apikey}")
