@@ -21,11 +21,17 @@
         "hostingPlanName": {
             "type": "string",
             "defaultValue": "appplan-ss-financeapp-001"
+        },
+        "keyVaultName": {
+            "type": "string",
+            "defaultValue": "kv-ss-financeapp-001"
         }
     },
     "variables": {
         "StorageBlobContributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
+        "KeyVaultUser": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '4633458b-17de-408a-b874-0445c86b69e6')]",
         "bootstrapRoleAssignmentId": "[guid(concat(parameters('name'), 'contributor'))]",
+        "keyvaultRoleAssignmentId": "[guid(concat(parameters('name'), 'keyvaultuser'))]",
         "serverFarmResourceGroup": "[resourceGroup().name]"
     },
     "resources": [
@@ -178,6 +184,20 @@
             ],
             "properties": {
                 "roleDefinitionId": "[variables('StorageBlobContributor')]",
+                "principalId": "[reference(resourceId('Microsoft.Web/Sites', parameters('name')), '2022-03-01', 'Full').identity.principalId]",
+                "principalType": "ServicePrincipal"
+            }
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2022-04-01",
+            "name": "[variables('keyvaultRoleAssignmentId')]",
+            "scope": "[concat('Microsoft.KeyVault/vaults', '/', parameters('keyVaultName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[variables('keyVaultUserId')]",
                 "principalId": "[reference(resourceId('Microsoft.Web/Sites', parameters('name')), '2022-03-01', 'Full').identity.principalId]",
                 "principalType": "ServicePrincipal"
             }
