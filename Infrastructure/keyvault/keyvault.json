@@ -7,7 +7,12 @@
             "defaultValue": "kv-ss-financeapp-001"
         }
     },
-    "variables": {},
+    "variables": {
+        "simonSuthersId": "b8b27381-e060-47fb-87e1-d8bab6f6d89b",
+        "keysPermissions": ["list"],
+        "secretsPermissions": ["list"],
+        "certificatePermissions": ["list"]
+    },
     "resources": [
         {
             "apiVersion": "2021-10-01",
@@ -41,6 +46,27 @@
                 "application": "finance"
             },
             "dependsOn": []
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/accessPolicies",
+            "name": "[concat(parameters('keyVaultName'), '/add')]",
+            "apiVersion": "2019-09-01",
+            "properties": {
+              "accessPolicies": [
+                {
+                  "tenantId": "[subscription().tenantId]",
+                  "objectId": "[variables('simonSuthersId)]",
+                  "permissions": {
+                    "keys": "[variables('keysPermissions')]",
+                    "secrets": "[variables('secretsPermissions')]",
+                    "certificates": "[variables('certificatePermissions')]"
+                  }
+                }
+              ]
+            },
+            "dependsOn": [
+                "[concat('Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]"
+            ]
         }
     ],
     "outputs": {}
