@@ -83,6 +83,10 @@
                         {
                             "name": "FinanceBlobStorage__serviceUri",
                             "value": "https://stgssfinanaceapp001.blob.core.windows.net"
+                        },
+                        {
+                            "name": "alphavantageusername",
+                            "value": "@Microsoft.KeyVault(SecretUri=https://kv-ss-financeapp-001.vault.azure.net/secrets/alphavantageusername/9e3646f4c64940c2863b12c3fff71e07)"
                         }
                     ],
                     "cors": {
