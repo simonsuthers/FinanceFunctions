@@ -194,7 +194,7 @@
             "name": "[variables('keyvaultRoleAssignmentId')]",
             "scope": "[concat('Microsoft.KeyVault/vaults', '/', parameters('keyVaultName'))]",
             "dependsOn": [
-                "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+                "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
             ],
             "properties": {
                 "roleDefinitionId": "[variables('keyVaultUserId')]",
