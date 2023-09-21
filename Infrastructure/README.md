@@ -26,4 +26,7 @@ New-AzResourceGroupDeployment -ResourceGroupName rg-ss-financeapp-001 -TemplateF
 ### Finance function
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsimonsuthers%2FFinanceFunctions%2Fmain%2FInfrastructure%2Ffunction%2Ffinance_function.json)
 
+## Key Vault 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsimonsuthers%2FFinanceFunctions%2Fmain%2FInfrastructure%2Fkeyvault%2Fkeyvault.json)
+
 

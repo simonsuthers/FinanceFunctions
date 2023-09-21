@@ -21,14 +21,15 @@ The project then aims to find correlations between prices and fundamentals.
     - [x] Give managed identity permissions to read/write to storage accounnt.
  - [x] Set up CI/CD for Azure function
  - [ ] Create Key vault with ARM template
- - [ ] Get function to save to blob storage
-     - [ ] Used managed identity permissions
+    - [ ] Get function to call key vault
+ - [x] Get function to save to blob storage
+     - [x] Used managed identity permissions
  - [ ] Get function to get data from alphavantage
       - [ ] Save to blob storage
 
 Next steps:
-Adding Azure storage:
-https://learn.microsoft.com/en-us/azure/azure-functions/functions-add-output-binding-storage-queue-vs-code?pivots=programming-language-python&tabs=in-process%2Cv1
+Adding Azure key vault secret:
+https://learn.microsoft.com/en-us/azure/app-service/app-service-key-vault-references?tabs=azure-cli
 
 ## Log on to Azure with PowerShell
 ```
