@@ -135,7 +135,7 @@
             ],
             "properties": {
                 "roleDefinitionId": "[variables('StorageBlobContributor')]",
-                "principalId": "[variables('simonSuthersId]",
+                "principalId": "[variables('simonSuthersId')]",
                 "principalType": "User"
             }
         }
