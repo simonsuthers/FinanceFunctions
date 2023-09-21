@@ -1,11 +1,14 @@
 import azure.functions as func
 import logging
+import os
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 @app.route(route="HttpTrigger")
 def HttpTrigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
+
+    username = os.environ["alphavantageusername"]
 
     name = req.params.get('name')
     if not name:
@@ -17,10 +20,10 @@ def HttpTrigger(req: func.HttpRequest) -> func.HttpResponse:
             name = req_body.get('name')
 
     if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully. User name is {username}")
     else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+             f"This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response. User name is {username}",
              status_code=200
         )
     
