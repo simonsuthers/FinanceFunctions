@@ -30,10 +30,11 @@ The project then aims to find correlations between prices and fundamentals.
       - [x] Save to blob storage
  - [x] Get function to save to blob storage using azure-storage-blob
  - [x] Add blueprint file
- - [ ] Add tests
+ - [x] Add tests
  - [ ] Create function to save pricing by ticker to blob storage
  - [ ] Create list of master securities
  - [ ] Create logic app to run function app
+ - [ ] Create Delta files
 
 Next steps:
 Add tests:
