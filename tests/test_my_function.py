@@ -2,7 +2,7 @@ import pytest
 import unittest
 import azure.functions as func
 
-from function_app import main
+from extract_functions import main
 
 class TestFunction(unittest.TestCase):
   
