@@ -6,6 +6,8 @@ from azure.storage.filedatalake import DataLakeServiceClient, DataLakeFileClient
 from azure.identity import DefaultAzureCredential
 import azure.functions as func 
 
+from shared_code import my_helper_function
+
 bp = func.Blueprint() 
 
 @bp.route(route="BlobTrigger")
@@ -66,3 +68,17 @@ def DfsTrigger(req: func.HttpRequest) -> func.HttpResponse:
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
         )
+    
+
+@bp.function_name(name="my_second_function")
+@bp.route(route="hello")
+def main(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info('Executing my_second_function.')
+
+    initial_value: int = int(req.params.get('value'))
+    doubled_value: int = my_helper_function.double(initial_value)
+
+    return func.HttpResponse(
+        body=f"{initial_value} * 2 = {doubled_value}",
+        status_code=200
+    )
