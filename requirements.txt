@@ -4,3 +4,6 @@
 
 azure-functions
 requests
+azure-storage-blob
+azure-storage-file-datalake
+azure-identity

@@ -1,5 +1,7 @@
 # Visualising stock prices
 
+[![Build and deploy Python project to Azure Function App](https://github.com/simonsuthers/FinanceFunctions/actions/workflows/release.yml/badge.svg)](https://github.com/simonsuthers/FinanceFunctions/actions/workflows/release.yml)
+
 This project aims to collect and visualise stock prices. Stock prices are obtained from: https://www.alphavantage.co/documentation/
 
 The project then aims to find correlations between prices and fundamentals.
@@ -20,16 +22,22 @@ The project then aims to find correlations between prices and fundamentals.
     - [x] Create managed identity
     - [x] Give managed identity permissions to read/write to storage accounnt.
  - [x] Set up CI/CD for Azure function
- - [ ] Create Key vault with ARM template
-    - [ ] Get function to call key vault
+ - [x] Create Key vault with ARM template
+    - [x] Get function to call key vault
  - [x] Get function to save to blob storage
      - [x] Used managed identity permissions
- - [ ] Get function to get data from alphavantage
-      - [ ] Save to blob storage
+ - [x] Get function to get data from alphavantage
+      - [x] Save to blob storage
+ - [x] Get function to save to blob storage using azure-storage-blob
+ - [ ] Add blueprint file
+ - [ ] Add tests
+ - [ ] Create function to save pricing by ticker to blob storage
+ - [ ] Create list of master securities
+ - [ ] Create logic app to run function app
 
 Next steps:
-Adding Azure key vault secret:
-https://learn.microsoft.com/en-us/azure/app-service/app-service-key-vault-references?tabs=azure-cli
+Add tests:
+https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-python?tabs=asgi%2Capplication-level&pivots=python-mode-decorators
 
 ## Log on to Azure with PowerShell
 ```
