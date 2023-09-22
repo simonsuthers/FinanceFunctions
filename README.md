@@ -29,7 +29,7 @@ The project then aims to find correlations between prices and fundamentals.
  - [x] Get function to get data from alphavantage
       - [x] Save to blob storage
  - [x] Get function to save to blob storage using azure-storage-blob
- - [ ] Add blueprint file
+ - [x] Add blueprint file
  - [ ] Add tests
  - [ ] Create function to save pricing by ticker to blob storage
  - [ ] Create list of master securities
@@ -42,4 +42,9 @@ https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference-pyth
 ## Log on to Azure with PowerShell
 ```
 Connect-AzAccount
+```
+
+## Install frfom requirements.txt
+```
+pip install -r requirements.txt
 ```
