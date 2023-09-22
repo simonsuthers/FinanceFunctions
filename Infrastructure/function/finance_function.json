@@ -87,6 +87,10 @@
                         {
                             "name": "alphavantageapikey",
                             "value": "@Microsoft.KeyVault(SecretUri=https://kv-ss-financeapp-001.vault.azure.net/secrets/alphavantageapikey/)"
+                        },
+                        {
+                            "name": "FinanceDfsStorage",
+                            "value": "https://stgssfinanaceapp001.dfs.core.windows.net"
                         }
                     ],
                     "cors": {
